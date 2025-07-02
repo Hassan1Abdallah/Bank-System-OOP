@@ -24,19 +24,20 @@ A console-based **Object-Oriented Bank Management System** built in **C++**, off
 
 2. **Main Menu**
 
-   <!-- Screenshot 2: Shows the main menu after successful login -->
+  ![image](https://github.com/user-attachments/assets/8469ca73-a295-4e67-a5a7-9a8c6a990612)
 
 3. **Transactions Menu**
 
-   <!-- Screenshot 3: Shows deposit/withdraw/transfer options -->
+  ![image](https://github.com/user-attachments/assets/c2328820-ee46-47c1-a4f0-10fbdfc2b001)
 
 4. **Manage Users Menu**
 
-   <!-- Screenshot 4: Admin screen to manage user accounts -->
+  ![image](https://github.com/user-attachments/assets/ea6811a6-0b42-4d63-8314-c6456fa180c3)
 
 5. **Currency Exchange Menu**
 
-   <!-- Screenshot 5: Currency tools and calculator interface -->
+  ![image](https://github.com/user-attachments/assets/34f0b8eb-d250-4472-ada7-1c26d2c99480)
+
 
 ---
 
