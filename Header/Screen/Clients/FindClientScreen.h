@@ -5,10 +5,10 @@
 #include "Person.h"
 #include "Screen.h"
 
-class clsFindClientScreen : protected clsScreen {
+class FindClientScreen : protected Screen {
 
 private:
-    static void _PrintClient(BankClient Client) {
+    static void _printClient(BankClient Client) {
         cout << "\nClient Card:";
         cout << "\n___________________";
         cout << "\nFirstName   : " << Client.firstName;
@@ -16,30 +16,30 @@ private:
         cout << "\nFull Name   : " << Client.fullName();
         cout << "\nEmail       : " << Client.email;
         cout << "\nPhone       : " << Client.phone;
-        cout << "\nAcc. Number : " << Client.getAccountNumber();
+        cout << "\nAcc. number : " << Client.getAccountnumber();
         cout << "\nPassword    : " << Client.pinCode;
         cout << "\nBalance     : " << Client.balance;
         cout << "\n___________________\n";
     }
 
 public:
-    static void ShowFindClientScreen() {
+    static void showFindClientScreen() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pFindClient)) {
+        if (!checkAccessRights(User::enPermissions::pFindClient)) {
             return;
         }
 
-        _DrawScreenHeader("\tFind Client Screen");
+        _drawScreenHeader("\tFind Client Screen");
 
-        string AccountNumber;
-        cout << "\nPlease Enter Account Number: ";
-        AccountNumber = clsInputValidate::ReadString();
-        while (!BankClient::isClientExist(AccountNumber)) {
+        string Accountnumber;
+        cout << "\nPlease Enter Account number: ";
+        Accountnumber = InputValidate::readString();
+        while (!BankClient::isClientExist(Accountnumber)) {
             cout << "\nAccount number is not found, choose another one: ";
-            AccountNumber = clsInputValidate::ReadString();
+            Accountnumber = InputValidate::readString();
         }
 
-        BankClient Client1 = BankClient::find(AccountNumber);
+        BankClient Client1 = BankClient::find(Accountnumber);
 
         if (!Client1.isEmpty()) {
             cout << "\nClient Found :-)\n";
@@ -47,6 +47,6 @@ public:
             cout << "\nClient Was not Found :-(\n";
         }
 
-        _PrintClient(Client1);
+        _printClient(Client1);
     }
 };
