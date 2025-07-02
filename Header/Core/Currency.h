@@ -5,42 +5,42 @@
 #include <string>
 #include <vector>
 #include "String.h"
-class clsCurrency {
+class Currency {
 
 private:
     enum enMode { EmptyMode = 0, UpdateMode = 1 };
-    enMode _Mode;
+    enMode _mode;
 
-    string _Country;
-    string _CurrencyCode;
-    string _CurrencyName;
-    float _Rate;
+    string _country;
+    string _currencyCode;
+    string _currencyName;
+    float _rate;
 
-    static clsCurrency _ConvertLinetoCurrencyObject(string Line, string Seperator = "#//#") {
+    static Currency _convertLinetoCurrencyObject(string Line, string Seperator = "#//#") {
         vector<string> vCurrencyData;
-        vCurrencyData = clsString::Split(Line, Seperator);
+        vCurrencyData = String::split(Line, Seperator);
 
-        return clsCurrency(enMode::UpdateMode, vCurrencyData[0], vCurrencyData[1], vCurrencyData[2],
+        return Currency(enMode::UpdateMode, vCurrencyData[0], vCurrencyData[1], vCurrencyData[2],
                            stod(vCurrencyData[3]));
     }
 
-    static string _ConverCurrencyObjectToLine(clsCurrency Currency, string Seperator = "#//#") {
+    static string _converCurrencyObjectToLine(Currency currency, string Seperator = "#//#") {
 
         string stCurrencyRecord = "";
-        stCurrencyRecord += Currency.Country() + Seperator;
-        stCurrencyRecord += Currency.CurrencyCode() + Seperator;
-        stCurrencyRecord += Currency.CurrencyName() + Seperator;
-        stCurrencyRecord += to_string(Currency.Rate());
+        stCurrencyRecord += currency.country() + Seperator;
+        stCurrencyRecord += currency.currencyCode() + Seperator;
+        stCurrencyRecord += currency.currencyName() + Seperator;
+        stCurrencyRecord += to_string(currency.rate());
 
         return stCurrencyRecord;
     }
 
-    static vector<clsCurrency> _LoadCurrencysDataFromFile() {
+    static vector<Currency> _loadCurrencysDataFromFile() {
 
-        vector<clsCurrency> vCurrencys;
+        vector<Currency> vCurrencys;
 
         fstream MyFile;
-        MyFile.open("Currencies.txt", ios::in); // read Mode
+        MyFile.open("Currencies.txt", ios::in);
 
         if (MyFile.is_open()) {
 
@@ -48,7 +48,7 @@ private:
 
             while (getline(MyFile, Line)) {
 
-                clsCurrency Currency = _ConvertLinetoCurrencyObject(Line);
+                Currency Currency = _convertLinetoCurrencyObject(Line);
 
                 vCurrencys.push_back(Currency);
             }
@@ -59,17 +59,17 @@ private:
         return vCurrencys;
     }
 
-    static void _SaveCurrencyDataToFile(vector<clsCurrency> vCurrencys) {
+    static void _saveCurrencyDataToFile(vector<Currency> vCurrencys) {
 
         fstream MyFile;
-        MyFile.open("Currencies.txt", ios::out); // overwrite
+        MyFile.open("Currencies.txt", ios::out); 
 
         string DataLine;
 
         if (MyFile.is_open()) {
 
-            for (clsCurrency C: vCurrencys) {
-                DataLine = _ConverCurrencyObjectToLine(C);
+            for (Currency C: vCurrencys) {
+                DataLine = _converCurrencyObjectToLine(C);
                 MyFile << DataLine << endl;
             }
 
@@ -77,110 +77,110 @@ private:
         }
     }
 
-    void _Update() {
-        vector<clsCurrency> _vCurrencys;
-        _vCurrencys = _LoadCurrencysDataFromFile();
+    void _update() {
+        vector<Currency> _vCurrencys;
+        _vCurrencys = _loadCurrencysDataFromFile();
 
-        for (clsCurrency &C: _vCurrencys) {
-            if (C.CurrencyCode() == CurrencyCode()) {
+        for (Currency &C: _vCurrencys) {
+            if (C.currencyCode() == currencyCode()) {
                 C = *this;
                 break;
             }
         }
 
-        _SaveCurrencyDataToFile(_vCurrencys);
+        _saveCurrencyDataToFile(_vCurrencys);
     }
 
-    static clsCurrency _GetEmptyCurrencyObject() { return clsCurrency(enMode::EmptyMode, "", "", "", 0); }
+    static Currency _getEmptyCurrencyObject() { return Currency(enMode::EmptyMode, "", "", "", 0); }
 
 public:
-    clsCurrency(enMode Mode, string Country, string CurrencyCode, string CurrencyName, float Rate) {
-        _Mode = Mode;
-        _Country = Country;
-        _CurrencyCode = CurrencyCode;
-        _CurrencyName = CurrencyName;
-        _Rate = Rate;
+    Currency(enMode Mode, string country, string currencyCode, string currencyName, float rate) {
+        _mode = Mode;
+        _country = country;
+        _currencyCode = currencyCode;
+        _currencyName = currencyName;
+        _rate = rate;
     }
 
-    static vector<clsCurrency> GetAllUSDRates() { return _LoadCurrencysDataFromFile(); }
+    static vector<Currency> getAllUSDRates() { return _loadCurrencysDataFromFile(); }
 
-    bool IsEmpty() { return (_Mode == enMode::EmptyMode); }
+    bool isEmpty() { return (_mode == enMode::EmptyMode); }
 
-    string Country() { return _Country; }
+    string country() { return _country; }
 
-    string CurrencyCode() { return _CurrencyCode; }
+    string currencyCode() { return _currencyCode; }
 
-    string CurrencyName() { return _CurrencyName; }
+    string currencyName() { return _currencyName; }
 
-    void UpdateRate(float NewRate) {
-        _Rate = NewRate;
-        _Update();
+    void updateRate(float NewRate) {
+        _rate = NewRate;
+        _update();
     }
 
-    float Rate() { return _Rate; }
+    float rate() { return _rate; }
 
 
-    static clsCurrency FindByCode(string CurrencyCode) {
+    static Currency findByCode(string currencyCode) {
 
-        CurrencyCode = clsString::UpperAllString(CurrencyCode);
+        currencyCode = String::upperAllString(currencyCode);
 
         fstream MyFile;
-        MyFile.open("Currencies.txt", ios::in); // read Mode
+        MyFile.open("Currencies.txt", ios::in);  
 
         if (MyFile.is_open()) {
             string Line;
             while (getline(MyFile, Line)) {
-                clsCurrency Currency = _ConvertLinetoCurrencyObject(Line);
-                if (Currency.CurrencyCode() == CurrencyCode) {
+                Currency currency = _convertLinetoCurrencyObject(Line);
+                if (currency.currencyCode() == currencyCode) {
                     MyFile.close();
-                    return Currency;
+                    return currency;
                 }
             }
 
             MyFile.close();
         }
 
-        return _GetEmptyCurrencyObject();
+        return _getEmptyCurrencyObject();
     }
 
-    static clsCurrency FindByCountry(string Country) {
-        Country = clsString::UpperAllString(Country);
+    static Currency findBycountry(string country) {
+        country = String::upperAllString(country);
 
         fstream MyFile;
-        MyFile.open("Currencies.txt", ios::in); // read Mode
+        MyFile.open("Currencies.txt", ios::in);  
 
         if (MyFile.is_open()) {
             string Line;
             while (getline(MyFile, Line)) {
-                clsCurrency Currency = _ConvertLinetoCurrencyObject(Line);
-                if (clsString::UpperAllString(Currency.Country()) == Country) {
+                Currency currency = _convertLinetoCurrencyObject(Line);
+                if (String::upperAllString(currency.country()) == country) {
                     MyFile.close();
-                    return Currency;
+                    return currency;
                 }
             }
 
             MyFile.close();
         }
 
-        return _GetEmptyCurrencyObject();
+        return _getEmptyCurrencyObject();
     }
 
-    static bool IsCurrencyExist(string CurrencyCode) {
-        clsCurrency C1 = clsCurrency::FindByCode(CurrencyCode);
-        return (!C1.IsEmpty());
+    static bool isCurrencyExist(string currencyCode) {
+        Currency C1 = Currency::findByCode(currencyCode);
+        return (!C1.isEmpty());
     }
 
-    static vector<clsCurrency> GetCurrenciesList() { return _LoadCurrencysDataFromFile(); }
+    static vector<Currency> getCurrenciesList() { return _loadCurrencysDataFromFile(); }
 
-    float ConvertToUSD(float Amount) { return (float) (Amount / Rate()); }
+    float convertToUSD(float Amount) { return (float) (Amount / rate()); }
 
-    float ConvertToOtherCurrency(float Amount, clsCurrency Currency2) {
-        float AmountInUSD = ConvertToUSD(Amount);
+    float convertToOtherCurrency(float Amount, Currency Currency2) {
+        float AmountInUSD = convertToUSD(Amount);
 
-        if (Currency2.CurrencyCode() == "USD") {
+        if (Currency2.currencyCode() == "USD") {
             return AmountInUSD;
         }
 
-        return (float) (AmountInUSD * Currency2.Rate());
+        return (float) (AmountInUSD * Currency2.rate());
     }
 };
