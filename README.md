@@ -1,4 +1,4 @@
-# BankSystemOOP
+# Bank System with OOP
 
 A console-based **Object-Oriented Bank Management System** built in **C++**, offering core functionalities for managing clients, users, currency exchange, and transactions. The system emphasizes **clean architecture**, **access control**, and **modular design**.
 
