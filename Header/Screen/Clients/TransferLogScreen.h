@@ -7,15 +7,15 @@
 #include "Screen.h"
 
 
-class clsTransferLogScreen : protected clsScreen {
+class TransferLogScreen : protected Screen {
 
 private:
-    static void PrintTransferLogRecordLine(BankClient::stTrnsferLogRecord TransferLogRecord) {
+    static void printTransferLogRecordLine(BankClient::stTrnsferLogRecord TransferLogRecord) {
 
         cout << setw(8) << left << ""
              << "| " << setw(23) << left << TransferLogRecord.DateTime;
-        cout << "| " << setw(8) << left << TransferLogRecord.SourceAccountNumber;
-        cout << "| " << setw(8) << left << TransferLogRecord.DestinationAccountNumber;
+        cout << "| " << setw(8) << left << TransferLogRecord.SourceAccountnumber;
+        cout << "| " << setw(8) << left << TransferLogRecord.DestinationAccountnumber;
         cout << "| " << setw(8) << left << TransferLogRecord.Amount;
         cout << "| " << setw(10) << left << TransferLogRecord.srcBalanceAfter;
         cout << "| " << setw(10) << left << TransferLogRecord.destBalanceAfter;
@@ -23,15 +23,15 @@ private:
     }
 
 public:
-    static void ShowTransferLogScreen() {
+    static void showTransferLogScreen() {
 
 
-        vector<BankClient::stTrnsferLogRecord> vTransferLogRecord = BankClient::GetTransfersLogList();
+        vector<BankClient::stTrnsferLogRecord> vTransferLogRecord = BankClient::getTransfersLogList();
 
         string Title = "\tTransfer Log List Screen";
         string SubTitle = "\t    (" + to_string(vTransferLogRecord.size()) + ") Record(s).";
 
-        _DrawScreenHeader(Title, SubTitle);
+        _drawScreenHeader(Title, SubTitle);
 
         cout << setw(8) << left << ""
              << "\n\t_______________________________________________________";
@@ -56,7 +56,7 @@ public:
 
             for (BankClient::stTrnsferLogRecord Record: vTransferLogRecord) {
 
-                PrintTransferLogRecordLine(Record);
+                printTransferLogRecordLine(Record);
                 cout << endl;
             }
 
