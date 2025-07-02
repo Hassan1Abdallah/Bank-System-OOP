@@ -5,10 +5,10 @@
 #include "InputValidate.h"
 #include "Screen.h"
 
-class clsDepositScreen : protected clsScreen {
+class DepositScreen : protected Screen {
 
 private:
-    static void _PrintClient(BankClient Client) {
+    static void _printClient(BankClient Client) {
         cout << "\nClient Card:";
         cout << "\n___________________";
         cout << "\nFirstName   : " << Client.firstName;
@@ -16,46 +16,46 @@ private:
         cout << "\nFull Name   : " << Client.fullName();
         cout << "\nEmail       : " << Client.email;
         cout << "\nPhone       : " << Client.phone;
-        cout << "\nAcc. Number : " << Client.getAccountNumber();
+        cout << "\nAcc. number : " << Client.getAccountnumber();
         cout << "\nPassword    : " << Client.pinCode;
         cout << "\nBalance     : " << Client.balance;
         cout << "\n___________________\n";
     }
 
-    static string _ReadAccountNumber() {
-        string AccountNumber = "";
-        cout << "\nPlease enter AccountNumber? ";
-        cin >> AccountNumber;
-        return AccountNumber;
+    static string _readAccountnumber() {
+        string Accountnumber = "";
+        cout << "\nPlease enter Accountnumber? ";
+        cin >> Accountnumber;
+        return Accountnumber;
     }
 
 public:
-    static void ShowDepositScreen() {
-        _DrawScreenHeader("\t   Deposit Screen");
+    static void showDepositScreen() {
+        _drawScreenHeader("\t   deposit Screen");
 
-        string AccountNumber = _ReadAccountNumber();
+        string Accountnumber = _readAccountnumber();
 
 
-        while (!BankClient::isClientExist(AccountNumber)) {
-            cout << "\nClient with [" << AccountNumber << "] does not exist.\n";
-            AccountNumber = _ReadAccountNumber();
+        while (!BankClient::isClientExist(Accountnumber)) {
+            cout << "\nClient with [" << Accountnumber << "] does not exist.\n";
+            Accountnumber = _readAccountnumber();
         }
 
-        BankClient Client1 = BankClient::find(AccountNumber);
-        _PrintClient(Client1);
+        BankClient Client1 = BankClient::find(Accountnumber);
+        _printClient(Client1);
 
         double Amount = 0;
         cout << "\nPlease enter deposit amount? ";
-        Amount = clsInputValidate::ReadDblNumber();
+        Amount = InputValidate::readDblnumber();
 
         cout << "\nAre you sure you want to perform this transaction? y/n ? ";
         char Answer = 'n';
         cin >> Answer;
 
         if (Answer == 'Y' || Answer == 'y') {
-            Client1.Deposit(Amount);
+            Client1.deposit(Amount);
             cout << "\nAmount Deposited Successfully.\n";
-            cout << "\nNew Balance Is: " << Client1.balance;
+            cout << "\nNew Balance is: " << Client1.balance;
 
         } else {
             cout << "\nOperation was cancelled.\n";
