@@ -9,12 +9,11 @@ int main()
 {
     while (true) {
     
-        if (!clsLoginScreen::ShowLoginScreen()) {
+        if (!LoginScreen::showLoginScreen()) {
             break;
         }
     
     }
-
 
     system("pause>0");
     return 0;
