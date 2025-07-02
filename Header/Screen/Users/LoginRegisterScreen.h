@@ -7,10 +7,10 @@
 #include "User.h"
 
 
-class clsLoginRegisterScreen : protected clsScreen {
+class LoginRegisterScreen : protected Screen {
 
 private:
-    static void PrintLoginRegisterRecordLine(clsUser::stLoginRegisterRecord LoginRegisterRecord) {
+    static void printLoginRegisterRecordLine(User::stLoginRegisterRecord LoginRegisterRecord) {
 
         cout << setw(8) << left << ""
              << "| " << setw(35) << left << LoginRegisterRecord.DateTime;
@@ -20,18 +20,18 @@ private:
     }
 
 public:
-    static void ShowLoginRegisterScreen() {
+    static void showLoginRegisterScreen() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pLoginRegister)) {
+        if (!checkAccessRights(User::enPermissions::pLoginRegister)) {
             return; // this will exit the function and it will not continue
         }
 
-        vector<clsUser::stLoginRegisterRecord> vLoginRegisterRecord = clsUser::GetLoginRegisterList();
+        vector<User::stLoginRegisterRecord> vLoginRegisterRecord = User::getLoginRegisterList();
 
         string Title = "\tLogin Register List Screen";
         string SubTitle = "\t\t(" + to_string(vLoginRegisterRecord.size()) + ") Record(s).";
 
-        _DrawScreenHeader(Title, SubTitle);
+        _drawScreenHeader(Title, SubTitle);
 
         cout << setw(8) << left << ""
              << "\n\t_______________________________________________________";
@@ -50,9 +50,9 @@ public:
             cout << "\t\t\t\tNo Logins Available In the System!";
         else
 
-            for (clsUser::stLoginRegisterRecord Record: vLoginRegisterRecord) {
+            for (User::stLoginRegisterRecord Record: vLoginRegisterRecord) {
 
-                PrintLoginRegisterRecordLine(Record);
+                printLoginRegisterRecordLine(Record);
                 cout << endl;
             }
 
