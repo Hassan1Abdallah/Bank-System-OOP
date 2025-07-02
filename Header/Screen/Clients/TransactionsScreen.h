@@ -11,83 +11,83 @@
 
 using namespace std;
 
-class clsTransactionsScreen : protected clsScreen {
+class TransactionsScreen : protected Screen {
 
 
 private:
     enum enTransactionsMenueOptions { eDeposit = 1, eWithdraw = 2, eShowTotalBalance = 3, eTransfer = 4, eTransferLog = 5, eShowMainMenue = 6 };
 
-    static short ReadTransactionsMenueOption() {
+    static short readTransactionsMenueOption() {
         cout << setw(37) << left << ""
              << "Choose what do you want to do? [1 to 6]? ";
-        short Choice = clsInputValidate::ReadShortNumberBetween(1, 6, "Enter Number between 1 to 6? ");
+        short Choice = InputValidate::readShortnumberBetween(1, 6, "Enter number between 1 to 6? ");
         return Choice;
     }
 
-    static void _ShowDepositScreen() { 
+    static void _showDepositScreen() { 
               
-        clsDepositScreen::ShowDepositScreen();
+        DepositScreen::showDepositScreen();
     }
 
-    static void _ShowWithdrawScreen() {
+    static void _showWithdrawScreen() {
         
-        clsWithdrawScreen::ShowWithdrawScreen();
+        WithdrawScreen::showWithdrawScreen();
     }
 
-    static void _ShowTotalBalancesScreen() { 
+    static void _showTotalBalancesScreen() { 
             
-        clsTotalBalancesScreen::ShowTotalBalances();
+        TotalBalancesScreen::showTotalBalances();
     }
 
-    static void _ShowTransferScreen() { 
+    static void _showTransferScreen() { 
             
-        clsTransferScreen::ShowTransferScreen();
+        TransferScreen::showTransferScreen();
     }
 
-    static void _ShowTransferLogScreen() { 
-        clsTransferLogScreen::ShowTransferLogScreen();
+    static void _showTransferLogScreen() { 
+        TransferLogScreen::showTransferLogScreen();
     }
 
-    static void _GoBackToTransactionsMenue() {
+    static void _goBackToTransactionsMenue() {
         cout << "\n\nPress any key to go back to Transactions Menue...";
         system("pause>0");
-        ShowTransactionsMenue();
+        showTransactionsMenue();
     }
 
-    static void _PerformTransactionsMenueOption(enTransactionsMenueOptions TransactionsMenueOption) {
+    static void _performTransactionsMenueOption(enTransactionsMenueOptions TransactionsMenueOption) {
         switch (TransactionsMenueOption) {
             case enTransactionsMenueOptions::eDeposit: {
                 system("cls");
-                _ShowDepositScreen();
-                _GoBackToTransactionsMenue();
+                _showDepositScreen();
+                _goBackToTransactionsMenue();
                 break;
             }
 
             case enTransactionsMenueOptions::eWithdraw: {
                 system("cls");
-                _ShowWithdrawScreen();
-                _GoBackToTransactionsMenue();
+                _showWithdrawScreen();
+                _goBackToTransactionsMenue();
                 break;
             }
 
             case enTransactionsMenueOptions::eShowTotalBalance: {
                 system("cls");
-                _ShowTotalBalancesScreen();
-                _GoBackToTransactionsMenue();
+                _showTotalBalancesScreen();
+                _goBackToTransactionsMenue();
                 break;
             }
 
             case enTransactionsMenueOptions::eTransfer: {
                 system("cls");
-                _ShowTransferScreen();
-                _GoBackToTransactionsMenue();
+                _showTransferScreen();
+                _goBackToTransactionsMenue();
                 break;
             }
 
             case enTransactionsMenueOptions::eTransferLog: {
                 system("cls");
-                _ShowTransferLogScreen();
-                _GoBackToTransactionsMenue();
+                _showTransferLogScreen();
+                _goBackToTransactionsMenue();
                 break;
             }
 
@@ -101,26 +101,26 @@ private:
 
 
 public:
-    static void ShowTransactionsMenue() {
+    static void showTransactionsMenue() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pTranactions)) {
+        if (!checkAccessRights(User::enPermissions::pTranactions)) {
             return;
         }
 
         system("cls");
-        _DrawScreenHeader("\t  Transactions Screen");
+        _drawScreenHeader("\t  Transactions Screen");
 
         cout << setw(37) << left << "" << "===========================================\n";
         cout << setw(37) << left << "" << "\t\t  Transactions Menue\n"; 
         cout << setw(37) << left << "" << "===========================================\n";
-        cout << setw(37) << left << "" << "\t[1] Deposit.\n";
-        cout << setw(37) << left << "" << "\t[2] Withdraw.\n";
+        cout << setw(37) << left << "" << "\t[1] deposit.\n";
+        cout << setw(37) << left << "" << "\t[2] withdraw.\n";
         cout << setw(37) << left << "" << "\t[3] Total Balances.\n";
-        cout << setw(37) << left << "" << "\t[4] Transfer.\n";
-        cout << setw(37) << left << "" << "\t[5] Transfer Log.\n";
+        cout << setw(37) << left << "" << "\t[4] transfer.\n";
+        cout << setw(37) << left << "" << "\t[5] transfer Log.\n";
         cout << setw(37) << left << "" << "\t[6] Main Menue.\n";
         cout << setw(37) << left << "" << "===========================================\n";
 
-        _PerformTransactionsMenueOption((enTransactionsMenueOptions) ReadTransactionsMenueOption());
+        _performTransactionsMenueOption((enTransactionsMenueOptions) readTransactionsMenueOption());
     }
 };
