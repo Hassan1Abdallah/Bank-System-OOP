@@ -7,10 +7,10 @@
 #include "Screen.h"
 #include "User.h"
 
-class clsLoginScreen : protected clsScreen {
+class LoginScreen : protected Screen {
 
 private:
-    static bool _Login() {
+    static bool _login() {
         bool LoginFaild = false;
         int trials = 0;
         string Username, Password;
@@ -33,21 +33,21 @@ private:
             cout << "Enter Password? ";
             cin >> Password;
 
-            CurrentUser = clsUser::Find(Username, Password);
+            CurrentUser = User::find(Username, Password);
 
-            LoginFaild = CurrentUser.IsEmpty();
+            LoginFaild = CurrentUser.isEmpty();
 
         } while (LoginFaild);
-        CurrentUser.RegisterLogIn();
-        clsMainScreen::ShowMainMenue();
+        CurrentUser.registerLogIn();
+        MainScreen::showMainMenue();
         return true;
     }
 
 public:
-    static bool ShowLoginScreen() {
+    static bool showLoginScreen() {
         system("cls");
-        _DrawScreenHeader("\t  Login Screen");
-        return _Login();
+        _drawScreenHeader("\t  Login Screen");
+        return _login();
 
     }
 };
