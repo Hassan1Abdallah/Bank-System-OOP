@@ -4,61 +4,61 @@
 #include "InputValidate.h"
 #include "Screen.h"
 
-class clsUpdateCurrencyScreen : protected clsScreen {
+class UpdateCurrencyScreen : protected Screen {
 
 private:
-    static void _PrintCurrency(clsCurrency Currency) {
+    static void _printCurrency(Currency currency) {
         cout << "\nCurrency Card:\n";
         cout << "_____________________________\n";
-        cout << "\nCountry    : " << Currency.Country();
-        cout << "\nCode       : " << Currency.CurrencyCode();
-        cout << "\nName       : " << Currency.CurrencyName();
-        cout << "\nRate(1$) = : " << Currency.Rate();
+        cout << "\ncountry    : " << currency.country();
+        cout << "\nCode       : " << currency.currencyCode();
+        cout << "\nName       : " << currency.currencyName();
+        cout << "\nRate(1$) = : " << currency.rate();
 
         cout << "\n_____________________________\n";
     }
 
-    static float _ReadRate() {
-        cout << "\nEnter New Rate: ";
+    static float _readRate() {
+        cout << "\nEnter New rate: ";
         float NewRate = 0;
 
-        NewRate = clsInputValidate::ReadFloatNumber();
+        NewRate = InputValidate::readFloatnumber();
         return NewRate;
     }
 
 public:
 
-    static void ShowUpdateCurrencyScreen() { 
+    static void showUpdateCurrencyScreen() { 
         
-        _DrawScreenHeader("\t  Update Currency Screen"); 
+        _drawScreenHeader("\t  Update Currency Screen"); 
         string code = "";
         
         cout << "PLZ enter currency code: ";
-        code = clsInputValidate::ReadString();
+        code = InputValidate::readString();
 
-        while (!clsCurrency::IsCurrencyExist(code)) {
+        while (!Currency::isCurrencyExist(code)) {
 
             cout << "Currency is NOT found, Enter another currency code: ";
-            code = clsInputValidate::ReadString();
+            code = InputValidate::readString();
 
         }
 
-        clsCurrency currency = clsCurrency::FindByCode(code);
-        _PrintCurrency(currency);
+        Currency currency = Currency::findByCode(code);
+        _printCurrency(currency);
 
 
-        cout << "\nAre you sure you want to update this Rate  y/n? ";
+        cout << "\nAre you sure you want to update this rate  y/n? ";
     
         char answer = 'n';
         cin >> answer;
         if (answer == 'Y' || answer == 'y') {
-            cout << "\n\nUpdate Currency Rate:";
+            cout << "\n\nUpdate Currency rate:";
             cout << "\n____________________\n";
 
-            currency.UpdateRate(_ReadRate());
+            currency.updateRate(_readRate());
 
-            cout << "\nCurrency Rate Updated Successfully :-)\n";
-            _PrintCurrency(currency);
+            cout << "\nCurrency rate Updated Successfully :-)\n";
+            _printCurrency(currency);
 
     
         }
