@@ -6,11 +6,11 @@
 
 using namespace std;
 
-class clsScreen {
+class Screen {
 protected:
     
-    static void _DrawScreenHeader(string Title, string SubTitle = "") {
-        clsDate today = clsDate::GetSystemDate();
+    static void _drawScreenHeader(string Title, string SubTitle = "") {
+        Date today = Date::getSystemDate();
         cout << "\t\t\t\t\t______________________________________";
         cout << "\n\n\t\t\t\t\t  " << Title;
         if (SubTitle != "") {
@@ -19,14 +19,14 @@ protected:
         cout << "\n\t\t\t\t\t______________________________________\n\n";
         cout << "\t\t\t\t\tUser: " << CurrentUser.UserName << endl;
         cout << "\t\t\t\t\tDate: ";
-        today.Print();
+        today.print();
         cout << endl;
         
     }
 
-    static bool CheckAccessRights(clsUser::enPermissions Permission) {
+    static bool checkAccessRights(User::enPermissions Permission) {
 
-        if (!CurrentUser.CheckAccessPermission(Permission)) {
+        if (!CurrentUser.checkAccessPermission(Permission)) {
             cout << "\t\t\t\t\t______________________________________";
             cout << "\n\n\t\t\t\t\t  Access Denied! Contact your Admin.";
             cout << "\n\t\t\t\t\t______________________________________\n\n";
