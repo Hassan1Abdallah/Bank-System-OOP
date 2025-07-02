@@ -6,29 +6,29 @@
 #include "InputValidate.h"
 #include "Screen.h"
 
-class clsAddNewClientScreen : protected clsScreen {
+class addNewClientScreen : protected Screen {
 private:
-    static void _ReadClientInfo(BankClient &Client) {
+    static void _readClientInfo(BankClient &Client) {
         cout << "\nEnter FirstName: ";
-        Client.firstName = clsInputValidate::ReadString();
+        Client.firstName = InputValidate::readString();
 
         cout << "\nEnter LastName: ";
-        Client.lastName = clsInputValidate::ReadString();
+        Client.lastName = InputValidate::readString();
 
         cout << "\nEnter Email: ";
-        Client.email = clsInputValidate::ReadString();
+        Client.email = InputValidate::readString();
 
         cout << "\nEnter Phone: ";
-        Client.phone = clsInputValidate::ReadString();
+        Client.phone = InputValidate::readString();
 
         cout << "\nEnter PinCode: ";
-        Client.pinCode = clsInputValidate::ReadString();
+        Client.pinCode = InputValidate::readString();
 
         cout << "\nEnter Account Balance: ";
-        Client.balance = clsInputValidate::ReadFloatNumber();
+        Client.balance = InputValidate::readFloatnumber();
     }
 
-    static void _PrintClient(BankClient Client) {
+    static void _printClient(BankClient Client) {
         cout << "\nClient Card:";
         cout << "\n___________________";
         cout << "\nFirstName   : " << Client.firstName;
@@ -36,34 +36,34 @@ private:
         cout << "\nFull Name   : " << Client.fullName();
         cout << "\nEmail       : " << Client.email;
         cout << "\nPhone       : " << Client.phone;
-        cout << "\nAcc. Number : " << Client.getAccountNumber();
+        cout << "\nAcc. number : " << Client.getAccountnumber();
         cout << "\nPassword    : " << Client.pinCode;
         cout << "\nBalance     : " << Client.balance;
         cout << "\n___________________\n";
     }
 
 public:
-    static void ShowAddNewClientScreen() {
+    static void showaddNewClientScreen() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pAddNewClient)) {
+        if (!checkAccessRights(User::enPermissions::paddNewClient)) {
             return; // this will exit the function and it will not continue
         }
 
-        _DrawScreenHeader("\t  Add New Client Screen");
+        _drawScreenHeader("\t  add New Client Screen");
 
-        string AccountNumber = "";
+        string Accountnumber = "";
 
-        cout << "\nPlease Enter Account Number: ";
-        AccountNumber = clsInputValidate::ReadString();
-        while (BankClient::isClientExist(AccountNumber)) {
-            cout << "\nAccount Number Is Already Used, Choose another one: ";
-            AccountNumber = clsInputValidate::ReadString();
+        cout << "\nPlease Enter Account number: ";
+        Accountnumber = InputValidate::readString();
+        while (BankClient::isClientExist(Accountnumber)) {
+            cout << "\nAccount number is Already Used, Choose another one: ";
+            Accountnumber = InputValidate::readString();
         }
 
-        BankClient NewClient = BankClient::getAddNewClientObject(AccountNumber);
+        BankClient NewClient = BankClient::getaddNewClientObject(Accountnumber);
 
 
-        _ReadClientInfo(NewClient);
+        _readClientInfo(NewClient);
 
         BankClient::enSaveResults SaveResult;
 
@@ -71,15 +71,15 @@ public:
 
         switch (SaveResult) {
             case BankClient::enSaveResults::svSucceeded: {
-                cout << "\nAccount Addeded Successfully :-)\n";
-                _PrintClient(NewClient);
+                cout << "\nAccount addeded Successfully :-)\n";
+                _printClient(NewClient);
                 break;
             }
             case BankClient::enSaveResults::svFaildEmptyObject: {
                 cout << "\nError account was not saved because it's Empty";
                 break;
             }
-            case BankClient::enSaveResults::svFaildAccountNumberExists: {
+            case BankClient::enSaveResults::svFaildAccountnumberExists: {
                 cout << "\nError account was not saved because account number is used!\n";
                 break;
             }
