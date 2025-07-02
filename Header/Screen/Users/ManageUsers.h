@@ -4,100 +4,100 @@
 #include "InputValidate.h"
 #include "Screen.h"
 #include "UsersListScreen.h"
-#include "AddNewUserScreen.h"
+#include "addNewUserScreen.h"
 #include "DeleteUserScreen.h"
 #include "UpdateUserScreen.h"
 #include "FindUserScreen.h"
 
 using namespace std;
 
-class clsManageUsersScreen : protected clsScreen {
+class ManageUsersScreen : protected Screen {
 
 private:
     enum enManageUsersMenueOptions {
         eListUsers = 1,
-        eAddNewUser = 2,
+        eaddNewUser = 2,
         eDeleteUser = 3,
         eUpdateUser = 4,
         eFindUser = 5,
         eMainMenue = 6
     };
 
-    static short ReadManageUsersMenueOption() {
+    static short readManageUsersMenueOption() {
         cout << setw(37) << left << ""
              << "Choose what do you want to do? [1 to 6]? ";
-        short Choice = clsInputValidate::ReadShortNumberBetween(1, 6, "Enter Number between 1 to 6? ");
+        short Choice = InputValidate::readShortnumberBetween(1, 6, "Enter number between 1 to 6? ");
         return Choice;
     }
 
-    static void _GoBackToManageUsersMenue() {
+    static void _goBackToManageUsersMenue() {
         cout << "\n\nPress any key to go back to Manage Users Menue...";
         system("pause>0");
-        ShowManageUsersMenue();
+        showManageUsersMenue();
     }
 
-    static void _ShowListUsersScreen() {
+    static void _showListUsersScreen() {
         
-        clsListUsersScreen::ShowUsersList();
+        ListUsersScreen::showUsersList();
     }
 
-    static void _ShowAddNewUserScreen() {
+    static void _showaddNewUserScreen() {
         
-        clsAddNewUserScreen::ShowAddNewUserScreen();
+        addNewUserScreen::showaddNewUserScreen();
     }
 
-    static void _ShowDeleteUserScreen() {
+    static void _showDeleteUserScreen() {
         
-        clsDeleteUserScreen::ShowDeleteUserScreen();
+        DeleteUserScreen::showDeleteUserScreen();
     }
 
-    static void _ShowUpdateUserScreen() { 
+    static void _showUpdateUserScreen() { 
         
-        clsUpdateUserScreen::ShowUpdateUserScreen();    
+        UpdateUserScreen::showUpdateUserScreen();    
     }
 
-    static void _ShowFindUserScreen() {
+    static void _showFindUserScreen() {
         
-        clsFindUserScreen::ShowFindUserScreen();    
+        FindUserScreen::showFindUserScreen();    
     }
 
 
-    static void _PerformManageUsersMenueOption(enManageUsersMenueOptions ManageUsersMenueOption) {
+    static void _performManageUsersMenueOption(enManageUsersMenueOptions ManageUsersMenueOption) {
 
         switch (ManageUsersMenueOption) {
             case enManageUsersMenueOptions::eListUsers: {
                 system("cls");
-                _ShowListUsersScreen();
-                _GoBackToManageUsersMenue();
+                _showListUsersScreen();
+                _goBackToManageUsersMenue();
                 break;
             }
 
-            case enManageUsersMenueOptions::eAddNewUser: {
+            case enManageUsersMenueOptions::eaddNewUser: {
                 system("cls");
-                _ShowAddNewUserScreen();
-                _GoBackToManageUsersMenue();
+                _showaddNewUserScreen();
+                _goBackToManageUsersMenue();
                 break;
             }
 
             case enManageUsersMenueOptions::eDeleteUser: {
                 system("cls");
-                _ShowDeleteUserScreen();
-                _GoBackToManageUsersMenue();
+                _showDeleteUserScreen();
+                _goBackToManageUsersMenue();
                 break;
             }
 
             case enManageUsersMenueOptions::eUpdateUser: {
                 system("cls");
-                _ShowUpdateUserScreen();
-                _GoBackToManageUsersMenue();
+                _showUpdateUserScreen();
+                _goBackToManageUsersMenue();
                 break;
             }
 
             case enManageUsersMenueOptions::eFindUser: {
                 system("cls");
 
-                _ShowFindUserScreen();
-                _GoBackToManageUsersMenue();
+                _showFindUserScreen();
+                _goBackToManageUsersMenue();
                 break;
             }
 
@@ -109,14 +109,14 @@ private:
 
 
 public:
-    static void ShowManageUsersMenue() {
+    static void showManageUsersMenue() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pManageUsers)) {
+        if (!checkAccessRights(User::enPermissions::pManageUsers)) {
             return; 
         }
 
         system("cls");
-        _DrawScreenHeader("\t Manage Users Screen");
+        _drawScreenHeader("\t Manage Users Screen");
 
         cout << setw(37) << left << ""
              << "===========================================\n";
@@ -127,18 +127,18 @@ public:
         cout << setw(37) << left << ""
              << "\t[1] List Users.\n";
         cout << setw(37) << left << ""
-             << "\t[2] Add New User.\n";
+             << "\t[2] add New User.\n";
         cout << setw(37) << left << ""
              << "\t[3] Delete User.\n";
         cout << setw(37) << left << ""
              << "\t[4] Update User.\n";
         cout << setw(37) << left << ""
-             << "\t[5] Find User.\n";
+             << "\t[5] find User.\n";
         cout << setw(37) << left << ""
              << "\t[6] Main Menue.\n";
         cout << setw(37) << left << ""
              << "===========================================\n";
 
-        _PerformManageUsersMenueOption((enManageUsersMenueOptions) ReadManageUsersMenueOption());
+        _performManageUsersMenueOption((enManageUsersMenueOptions) readManageUsersMenueOption());
     }
 };
