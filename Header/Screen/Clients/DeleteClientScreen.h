@@ -5,10 +5,10 @@
 #include "Person.h"
 #include "Screen.h"
 
-class clsDeleteClientScreen : protected clsScreen {
+class DeleteClientScreen : protected Screen {
 
 private:
-    static void _PrintClient(BankClient Client) {
+    static void _printClient(BankClient Client) {
         cout << "\nClient Card:";
         cout << "\n___________________";
         cout << "\nFirstName   : " << Client.firstName;
@@ -16,7 +16,7 @@ private:
         cout << "\nFull Name   : " << Client.fullName();
         cout << "\nEmail       : " << Client.email;
         cout << "\nPhone       : " << Client.phone;
-        cout << "\nAcc. Number : " << Client.getAccountNumber();
+        cout << "\nAcc. number : " << Client.getAccountnumber();
         cout << "\nPassword    : " << Client.pinCode;
         cout << "\nBalance     : " << Client.balance;
         cout << "\n___________________\n";
@@ -24,26 +24,26 @@ private:
 
 
 public:
-    static void ShowDeleteClientScreen() {
+    static void showDeleteClientScreen() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pDeleteClient)) {
+        if (!checkAccessRights(User::enPermissions::pDeleteClient)) {
             return; // this will exit the function and it will not continue
         }
 
-        _DrawScreenHeader("\tDelete Client Screen");
+        _drawScreenHeader("\tDelete Client Screen");
 
-        string AccountNumber = "";
+        string Accountnumber = "";
 
-        cout << "\nPlease Enter Account Number: ";
-        AccountNumber = clsInputValidate::ReadString();
+        cout << "\nPlease Enter Account number: ";
+        Accountnumber = InputValidate::readString();
 
-        while (!BankClient::isClientExist(AccountNumber)) {
+        while (!BankClient::isClientExist(Accountnumber)) {
             cout << "\nAccount number is not found, choose another one: ";
-            AccountNumber = clsInputValidate::ReadString();
+            Accountnumber = InputValidate::readString();
         }
 
-        BankClient Client1 = BankClient::find(AccountNumber);
-        _PrintClient(Client1);
+        BankClient Client1 = BankClient::find(Accountnumber);
+        _printClient(Client1);
 
         cout << "\nAre you sure you want to delete this client y/n? ";
 
@@ -55,7 +55,7 @@ public:
 
             if (Client1.Delete()) {
                 cout << "\nClient Deleted Successfully :-)\n";
-                _PrintClient(Client1);
+                _printClient(Client1);
             } else {
                 cout << "\nError Client Was not Deleted\n";
             }
