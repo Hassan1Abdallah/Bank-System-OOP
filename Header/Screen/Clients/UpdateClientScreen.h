@@ -5,11 +5,11 @@
 #include "Person.h"
 #include "Screen.h"
 
-class clsUpdateClientScreen : protected clsScreen
+class UpdateClientScreen : protected Screen
 
 {
 private:
-    static void _PrintClient(BankClient Client) {
+    static void _printClient(BankClient Client) {
         cout << "\nClient Card:";
         cout << "\n___________________";
         cout << "\nFirstName   : " << Client.firstName;
@@ -17,54 +17,54 @@ private:
         cout << "\nFull Name   : " << Client.fullName();
         cout << "\nEmail       : " << Client.email;
         cout << "\nPhone       : " << Client.phone;
-        cout << "\nAcc. Number : " << Client.getAccountNumber();
+        cout << "\nAcc. number : " << Client.getAccountnumber();
         cout << "\nPassword    : " << Client.pinCode;
         cout << "\nBalance     : " << Client.balance;
         cout << "\n___________________\n";
     }
 
-    static void _ReadClientInfo(BankClient &Client) {
+    static void _readClientInfo(BankClient &Client) {
         cout << "\nEnter FirstName: ";
-        Client.firstName = clsInputValidate::ReadString();
+        Client.firstName = InputValidate::readString();
 
         cout << "\nEnter LastName: ";
-        Client.lastName = clsInputValidate::ReadString();
+        Client.lastName = InputValidate::readString();
 
         cout << "\nEnter Email: ";
-        Client.email = clsInputValidate::ReadString();
+        Client.email = InputValidate::readString();
 
         cout << "\nEnter Phone: ";
-        Client.phone = clsInputValidate::ReadString();
+        Client.phone = InputValidate::readString();
 
         cout << "\nEnter PinCode: ";
-        Client.pinCode = clsInputValidate::ReadString();
+        Client.pinCode = InputValidate::readString();
 
         cout << "\nEnter Account Balance: ";
-        Client.balance = clsInputValidate::ReadFloatNumber();
+        Client.balance = InputValidate::readFloatnumber();
     }
 
 public:
-    static void ShowUpdateClientScreen() {
+    static void showUpdateClientScreen() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pUpdateClients)) {
+        if (!checkAccessRights(User::enPermissions::pUpdateClients)) {
             return; 
         }
 
-        _DrawScreenHeader("\tUpdate Client Screen");
+        _drawScreenHeader("\tUpdate Client Screen");
 
-        string AccountNumber = "";
+        string Accountnumber = "";
 
-        cout << "\nPlease Enter client Account Number: ";
-        AccountNumber = clsInputValidate::ReadString();
+        cout << "\nPlease Enter client Account number: ";
+        Accountnumber = InputValidate::readString();
 
-        while (!BankClient::isClientExist(AccountNumber)) {
+        while (!BankClient::isClientExist(Accountnumber)) {
             cout << "\nAccount number is not found, choose another one: ";
-            AccountNumber = clsInputValidate::ReadString();
+            Accountnumber = InputValidate::readString();
         }
 
-        BankClient Client1 = BankClient::find(AccountNumber);
+        BankClient Client1 = BankClient::find(Accountnumber);
 
-        _PrintClient(Client1);
+        _printClient(Client1);
 
         cout << "\nAre you sure you want to update this client y/n? ";
 
@@ -77,7 +77,7 @@ public:
             cout << "\n____________________\n";
 
 
-            _ReadClientInfo(Client1);
+            _readClientInfo(Client1);
 
             BankClient::enSaveResults SaveResult;
 
@@ -87,7 +87,7 @@ public:
                 case BankClient::enSaveResults::svSucceeded: {
                     cout << "\nAccount Updated Successfully :-)\n";
 
-                    _PrintClient(Client1);
+                    _printClient(Client1);
                     break;
                 }
                 case BankClient::enSaveResults::svFaildEmptyObject: {
