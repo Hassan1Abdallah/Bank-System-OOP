@@ -5,82 +5,82 @@
 #include "Person.h"
 #include "Screen.h"
 
-class clsTransferScreen : protected clsScreen {
+class TransferScreen : protected Screen {
 
 private:
-    static void _PrintClient(BankClient Client) {
+    static void _printClient(BankClient Client) {
         cout << "\nClient Card:";
         cout << "\n___________________\n";
         cout << "\nFull Name   : " << Client.fullName();
-        cout << "\nAcc. Number : " << Client.getAccountNumber();
+        cout << "\nAcc. number : " << Client.getAccountnumber();
         cout << "\nBalance     : " << Client.balance;
         cout << "\n___________________\n";
     }
 
-    static string _ReadAccountNumberFrom() {
-        string AccountNumber;
-        cout << "\nPlease Enter Account Number to Transfer From: ";
-        AccountNumber = clsInputValidate::ReadString();
-        while (!BankClient::isClientExist(AccountNumber)) {
+    static string _readAccountnumberFrom() {
+        string Accountnumber;
+        cout << "\nPlease Enter Account number to transfer From: ";
+        Accountnumber = InputValidate::readString();
+        while (!BankClient::isClientExist(Accountnumber)) {
             cout << "\nAccount number is not found, choose another one: ";
-            AccountNumber = clsInputValidate::ReadString();
+            Accountnumber = InputValidate::readString();
         }
-        return AccountNumber;
+        return Accountnumber;
     }
 
-    static string _ReadAccountNumberTo() {
-            string AccountNumber;
-            cout << "\nPlease Enter Account Number to Transfer To: ";
-            AccountNumber = clsInputValidate::ReadString();
-            while (!BankClient::isClientExist(AccountNumber)) {
+    static string _readAccountnumberTo() {
+            string Accountnumber;
+            cout << "\nPlease Enter Account number to transfer To: ";
+            Accountnumber = InputValidate::readString();
+            while (!BankClient::isClientExist(Accountnumber)) {
                 cout << "\nAccount number is not found, choose another one: ";
-                AccountNumber = clsInputValidate::ReadString();
+                Accountnumber = InputValidate::readString();
             }
-            return AccountNumber;
+            return Accountnumber;
         }
 
-    static float ReadAmount(BankClient SourceClient) {
+    static float readAmount(BankClient SourceClient) {
         float Amount;
 
-        cout << "\nEnter Transfer Amount? ";
+        cout << "\nEnter transfer Amount? ";
 
-        Amount = clsInputValidate::ReadFloatNumber();
+        Amount = InputValidate::readFloatnumber();
 
         while (Amount > SourceClient.balance) {
             cout << "\nAmount Exceeds the available Balance, Enter another Amount ? ";
-            Amount = clsInputValidate::ReadDblNumber();
+            Amount = InputValidate::readDblnumber();
         }
         return Amount;
     }
 
 public:
-    static void ShowTransferScreen() {
+    static void showTransferScreen() {
 
-        _DrawScreenHeader("\tTransfer Screen");
+        _drawScreenHeader("\tTransfer Screen");
 
-        BankClient SourceClient = BankClient::find(_ReadAccountNumberFrom());
+        BankClient SourceClient = BankClient::find(_readAccountnumberFrom());
 
-        _PrintClient(SourceClient);
+        _printClient(SourceClient);
 
-        BankClient DestinationClient = BankClient::find(_ReadAccountNumberTo());
+        BankClient DestinationClient = BankClient::find(_readAccountnumberTo());
 
-        _PrintClient(DestinationClient);
+        _printClient(DestinationClient);
 
-        float Amount = ReadAmount(SourceClient);
+        float Amount = readAmount(SourceClient);
 
 
         cout << "\nAre you sure you want to perform this operation? y/n? ";
         char Answer = 'n';
         cin >> Answer;
         if (Answer == 'Y' || Answer == 'y') {
-            if (SourceClient.Transfer(Amount, DestinationClient,CurrentUser.UserName)) {
+            if (SourceClient.transfer(Amount, DestinationClient,CurrentUser.UserName)) {
                 cout << "\nTransfer done successfully\n";
             } else {
                 cout << "\nTransfer Faild \n";
             }
         }
 
-        _PrintClient(SourceClient);
-        _PrintClient(DestinationClient);
+        _printClient(SourceClient);
+        _printClient(DestinationClient);
     }
 };
