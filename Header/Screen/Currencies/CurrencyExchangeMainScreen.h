@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class clsCurrencyExchangeMainScreen : protected clsScreen {
+class CurrencyExchangeMainScreen : protected Screen {
 
 private:
     enum enCurrenciesMainMenueOptions {
@@ -21,67 +21,67 @@ private:
         eMainMenue = 5
     };
 
-    static short ReadCurrenciesMainMenueOptions() {
+    static short readCurrenciesMainMenueOptions() {
         cout << setw(37) << left << ""
              << "Choose what do you want to do? [1 to 5]? ";
-        short Choice = clsInputValidate::ReadShortNumberBetween(1, 5, "Enter Number between 1 to 5? ");
+        short Choice = InputValidate::readShortnumberBetween(1, 5, "Enter number between 1 to 5? ");
         return Choice;
     }
 
-    static void _GoBackToCurrenciesMenue() {
+    static void _goBackToCurrenciesMenue() {
         cout << "\n\nPress any key to go back to Currencies Menue...";
         system("pause>0");
-        ShowCurrenciesMenue();
+        showCurrenciesMenue();
     }
 
-    static void _ShowCurrenciesListScreen() {
+    static void _showCurrenciesListScreen() {
         
-        clsCurrenciesListScreen::ShowCurrenciesListScreen();    
+        CurrenciesListScreen::showCurrenciesListScreen();    
     }
 
-    static void _ShowFindCurrencyScreen() { 
+    static void _showFindCurrencyScreen() { 
         
-        clsFindCurrencyScreen::ShowFindCurrencyScreen();    
+        FindCurrencyScreen::showFindCurrencyScreen();    
     }
 
-    static void _ShowUpdateCurrencyRateScreen() { 
+    static void _showUpdateCurrencyRateScreen() { 
         
-        clsUpdateCurrencyScreen::ShowUpdateCurrencyScreen();    
+        UpdateCurrencyScreen::showUpdateCurrencyScreen();    
     }
 
-    static void _ShowCurrencyCalculatorScreen() {
+    static void _showCurrencyCalculatorScreen() {
         
-        clsCurrencyCalculatorScreen::ShowCurrencyCalculatorScreen();    
+        CurrencyCalculatorScreen::showCurrencyCalculatorScreen();    
     }
 
-    static void _PerformCurrenciesMainMenueOptions(enCurrenciesMainMenueOptions CurrenciesMainMenueOptions) {
+    static void _performCurrenciesMainMenueOptions(enCurrenciesMainMenueOptions CurrenciesMainMenueOptions) {
 
         switch (CurrenciesMainMenueOptions) {
             case enCurrenciesMainMenueOptions::eListCurrencies: {
                 system("cls");
-                _ShowCurrenciesListScreen();
-                _GoBackToCurrenciesMenue();
+                _showCurrenciesListScreen();
+                _goBackToCurrenciesMenue();
                 break;
             }
 
             case enCurrenciesMainMenueOptions::eFindCurrency: {
                 system("cls");
-                _ShowFindCurrencyScreen();
-                _GoBackToCurrenciesMenue();
+                _showFindCurrencyScreen();
+                _goBackToCurrenciesMenue();
                 break;
             }
 
             case enCurrenciesMainMenueOptions::eUpdateCurrencyRate: {
                 system("cls");
-                _ShowUpdateCurrencyRateScreen();
-                _GoBackToCurrenciesMenue();
+                _showUpdateCurrencyRateScreen();
+                _goBackToCurrenciesMenue();
                 break;
             }
 
             case enCurrenciesMainMenueOptions::eCurrencyCalculator: {
                 system("cls");
-                _ShowCurrencyCalculatorScreen();
-                _GoBackToCurrenciesMenue();
+                _showCurrencyCalculatorScreen();
+                _goBackToCurrenciesMenue();
                 break;
             }
 
@@ -92,10 +92,10 @@ private:
     }
 
 public:
-    static void ShowCurrenciesMenue() {
+    static void showCurrenciesMenue() {
 
         system("cls");
-        _DrawScreenHeader("    Currancy Exhange Main Screen");
+        _drawScreenHeader("    Currancy Exhange Main Screen");
 
         cout << setw(37) << left << ""
              << "===========================================\n";
@@ -106,9 +106,9 @@ public:
         cout << setw(37) << left << ""
              << "\t[1] List Currencies.\n";
         cout << setw(37) << left << ""
-             << "\t[2] Find Currency.\n";
+             << "\t[2] find Currency.\n";
         cout << setw(37) << left << ""
-             << "\t[3] Update Rate.\n";
+             << "\t[3] Update rate.\n";
         cout << setw(37) << left << ""
              << "\t[4] Currency Calculator.\n";
         cout << setw(37) << left << ""
@@ -116,6 +116,6 @@ public:
         cout << setw(37) << left << ""
              << "===========================================\n";
 
-        _PerformCurrenciesMainMenueOptions((enCurrenciesMainMenueOptions) ReadCurrenciesMainMenueOptions());
+        _performCurrenciesMainMenueOptions((enCurrenciesMainMenueOptions) readCurrenciesMainMenueOptions());
     }
 };
