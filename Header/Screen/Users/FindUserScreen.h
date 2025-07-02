@@ -5,44 +5,44 @@
 #include "Screen.h"
 #include "User.h"
 
-class clsFindUserScreen : protected clsScreen {
+class FindUserScreen : protected Screen {
 
 private:
-    static void _PrintUser(clsUser User) {
+    static void _printUser(User user) {
         cout << "\nUser Card:";
         cout << "\n___________________";
-        cout << "\nFirstName   : " << User.firstName;
-        cout << "\nLastName    : " << User.lastName;
-        cout << "\nFull Name   : " << User.fullName();
-        cout << "\nEmail       : " << User.email;
-        cout << "\nPhone       : " << User.phone;
-        cout << "\nUser Name   : " << User.UserName;
-        cout << "\nPassword    : " << User.Password;
-        cout << "\nPermissions : " << User.Permissions;
+        cout << "\nFirstName   : " << user.firstName;
+        cout << "\nLastName    : " << user.lastName;
+        cout << "\nFull Name   : " << user.fullName();
+        cout << "\nEmail       : " << user.email;
+        cout << "\nPhone       : " << user.phone;
+        cout << "\nUser Name   : " << user.UserName;
+        cout << "\nPassword    : " << user.Password;
+        cout << "\nPermissions : " << user.Permissions;
         cout << "\n___________________\n";
     }
 
 public:
-    static void ShowFindUserScreen() {
+    static void showFindUserScreen() {
 
-        _DrawScreenHeader("\t  Find User Screen");
+        _drawScreenHeader("\t  find User Screen");
 
         string UserName;
         cout << "\nPlease Enter UserName: ";
-        UserName = clsInputValidate::ReadString();
-        while (!clsUser::IsUserExist(UserName)) {
+        UserName = InputValidate::readString();
+        while (!User::isUserExist(UserName)) {
             cout << "\nUser is not found, choose another one: ";
-            UserName = clsInputValidate::ReadString();
+            UserName = InputValidate::readString();
         }
 
-        clsUser User1 = clsUser::Find(UserName);
+        User User1 = User::find(UserName);
 
-        if (!User1.IsEmpty()) {
+        if (!User1.isEmpty()) {
             cout << "\nUser Found :-)\n";
         } else {
             cout << "\nUser Was not Found :-(\n";
         }
 
-        _PrintUser(User1);
+        _printUser(User1);
     }
 };
