@@ -5,28 +5,28 @@
 #include "Screen.h"
 #include "User.h"
 
-class clsListUsersScreen : protected clsScreen {
+class ListUsersScreen : protected Screen {
 
 private:
-    static void _PrintUserRecordLine(clsUser User) {
+    static void _printUserRecordLine(User user) {
 
         cout << setw(8) << left << ""
-             << "| " << setw(12) << left << User.UserName;
-        cout << "| " << setw(25) << left << User.fullName();
-        cout << "| " << setw(12) << left << User.phone;
-        cout << "| " << setw(20) << left << User.email;
-        cout << "| " << setw(10) << left << User.Password;
-        cout << "| " << setw(12) << left << User.Permissions;
+             << "| " << setw(12) << left << user.UserName;
+        cout << "| " << setw(25) << left << user.fullName();
+        cout << "| " << setw(12) << left << user.phone;
+        cout << "| " << setw(20) << left << user.email;
+        cout << "| " << setw(10) << left << user.Password;
+        cout << "| " << setw(12) << left << user.Permissions;
     }
 
 public:
-    static void ShowUsersList() {
-        vector<clsUser> vUsers = clsUser::GetUsersList();
+    static void showUsersList() {
+        vector<User> vUsers = User::getUsersList();
 
         string Title = "\t  User List Screen";
         string SubTitle = "\t    (" + to_string(vUsers.size()) + ") User(s).";
 
-        _DrawScreenHeader(Title, SubTitle);
+        _drawScreenHeader(Title, SubTitle);
 
         cout << setw(8) << left << ""
              << "\n\t_______________________________________________________";
@@ -47,9 +47,9 @@ public:
             cout << "\t\t\t\tNo Users Available In the System!";
         else
 
-            for (clsUser User: vUsers) {
+            for (User User: vUsers) {
 
-                _PrintUserRecordLine(User);
+                _printUserRecordLine(User);
                 cout << endl;
             }
 
