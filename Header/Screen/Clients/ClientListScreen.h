@@ -5,13 +5,13 @@
 #include "BankClient.h"
 #include "Screen.h"
 
-class clsClientListScreen : protected clsScreen {
+class clsClientListScreen : protected Screen {
 
 private:
-    static void PrintClientRecordLine(BankClient Client) {
+    static void printClientRecordLine(BankClient Client) {
 
         cout << setw(8) << left << ""
-             << "| " << setw(15) << left << Client.getAccountNumber();
+             << "| " << setw(15) << left << Client.getAccountnumber();
         cout << "| " << setw(20) << left << Client.fullName();
         cout << "| " << setw(12) << left << Client.phone;
         cout << "| " << setw(20) << left << Client.email;
@@ -20,9 +20,9 @@ private:
     }
 
 public:
-    static void ShowClientsList() {
+    static void showClientsList() {
 
-        if (!CheckAccessRights(clsUser::enPermissions::pListClients)) {
+        if (!checkAccessRights(User::enPermissions::pListClients)) {
             return; // this will exit the function and it will not continue
         }
 
@@ -31,7 +31,7 @@ public:
         string Title = "\t  Client List Screen";
         string SubTitle = "\t    (" + to_string(vClients.size()) + ") Client(s).";
 
-        _DrawScreenHeader(Title, SubTitle);
+        _drawScreenHeader(Title, SubTitle);
 
 
         cout << setw(8) << left << ""
@@ -39,7 +39,7 @@ public:
         cout << "_________________________________________\n" << endl;
 
         cout << setw(8) << left << ""
-             << "| " << left << setw(15) << "Accout Number";
+             << "| " << left << setw(15) << "Accout number";
         cout << "| " << left << setw(20) << "Client Name";
         cout << "| " << left << setw(12) << "Phone";
         cout << "| " << left << setw(20) << "Email";
@@ -55,7 +55,7 @@ public:
 
             for (BankClient Client: vClients) {
 
-                PrintClientRecordLine(Client);
+                printClientRecordLine(Client);
                 cout << endl;
             }
 
